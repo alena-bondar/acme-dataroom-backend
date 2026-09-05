@@ -42,3 +42,13 @@ jobs:
 
       - name: Build application
         run: npm run build
+
+      - name: Start application stack
+        run: docker compose up -d --build
+
+      - name: Show containers
+        run: docker compose ps
+
+      - name: Stop containers
+        if: always()
+        run: docker compose down
