@@ -51,7 +51,19 @@ jobs:
           echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env 
 
       - name: Start application stack
-        run: docker compose up -d --build
+        run: |
+          if ! docker compose up -d --build; then
+            echo "=== Containers ==="
+            docker compose ps -a
+          
+            echo "=== PostgreSQL logs ==="
+            docker compose logs db
+          
+            echo "=== Backend logs ==="
+            docker compose logs backend
+          
+            exit 1
+          fi
 
       - name: Show containers
         run: docker compose ps
