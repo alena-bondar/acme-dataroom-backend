@@ -12,9 +12,15 @@ import { PrismaExceptionFilter } from './common/prisma-exception.filter';
 @Module({
   imports: [ConfigModule.forRoot()],
   controllers: [AppController, UsersController],
-  providers: [AppService, {
-    provide: APP_FILTER,
-    useClass: PrismaExceptionFilter,
-  }, PrismaService, UsersService, FilesService],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: PrismaExceptionFilter,
+    },
+    PrismaService,
+    UsersService,
+    FilesService,
+  ],
 })
 export class AppModule {}
